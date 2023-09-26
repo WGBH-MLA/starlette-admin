@@ -335,7 +335,7 @@ class BaseAdmin:
                 "request": request,
                 "model": model,
                 "title" if title else None: title,
-                "_actions": await model.get_all_actions(request),
+                "_actions": await model.get_actions(request, RequestAction.LIST),
                 "__js_model__": await model._configs(request),
             },
         )
@@ -359,6 +359,8 @@ class BaseAdmin:
                 "model": model,
                 "raw_obj": obj,
                 "obj": await model.serialize(obj, request, RequestAction.DETAIL),
+                "_actions": await model.get_actions(request, RequestAction.DETAIL),
+                "__js_model__": await model._configs(request),
             },
         )
 
